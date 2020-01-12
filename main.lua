@@ -30,9 +30,28 @@ function Restart()
   mapManager.loadMap(map)
 end
 
+function GetQuads(spriteSheet, cellSize)
+  local width = spriteSheet:getWidth()
+  local height = spriteSheet:getHeight()
+  local quads = {}
+  for i=1,width/cellSize do
+    for j=1,height/cellSize do
+      local quad = love.graphics.newQuad((i-1)*cellSize, (j-1)*cellSize, cellSize, cellSize, width, height)
+      table.insert(quads, quad)
+    end
+  end
+  return quads
+end
+
 function love.load()
   love.graphics.setDefaultFilter("nearest", "nearest")
-  testTile = love.graphics.newImage("Images/Tile.png")
+  images = {}
+  images.spriteSheet = love.graphics.newImage("Images/Sprites.png")
+  images.quads = GetQuads(images.spriteSheet, 32)
+  images.tiles = {}
+  for i=1,12 do
+    table.insert(images.tiles, images.quads[i])
+  end
 
   Restart()
 end
@@ -44,9 +63,6 @@ end
 function love.draw()
   mapManager.drawMap(map)
   objects.player:draw()
-  for i=1,#objects.platforms do
-    objects.platforms[i]:draw()
-  end
 end
 
 function love.keypressed(key, scancode, isrepeat)

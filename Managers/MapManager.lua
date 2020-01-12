@@ -20,9 +20,9 @@ function mm.drawMap(map)
   local data = map.layers[1].data
   for y=1,#data do
     for x=1,#data[y] do
-      if data[y][x] == 1 then
+      if data[y][x] ~= 0 then
         love.graphics.setColor(1, 1, 1)
-        love.graphics.draw(testTile, (x-1)*32, (y-1)*32, 0, 1, 1)
+        love.graphics.draw(images.spriteSheet, images.tiles[ data[y][x] ], (x-1)*32, (y-1)*32, 0, 1, 1)
       end
     end
   end
