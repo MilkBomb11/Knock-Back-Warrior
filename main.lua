@@ -44,6 +44,8 @@ function GetQuads(spriteSheet, cellSize)
 end
 
 function love.load()
+  love.graphics.setBackgroundColor(hex.rgb("69859f"))
+
   love.graphics.setDefaultFilter("nearest", "nearest")
   images = {}
   images.spriteSheet = love.graphics.newImage("Images/Sprites.png")
