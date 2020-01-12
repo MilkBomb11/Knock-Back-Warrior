@@ -2,6 +2,7 @@ Object = require "Libs.classic"
 Camera = require "Libs.camera"
 Timer = require "Libs.timer"
 Bump = require "Libs.bump"
+hex = require "Libs.hexamaniac"
 
 world = Bump.newWorld(64)
 

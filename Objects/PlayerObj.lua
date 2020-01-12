@@ -80,6 +80,6 @@ function PlayerObj:respawn(x, y)
 end
 
 function PlayerObj:draw()
-  love.graphics.setColor(1, 1, 1)
+  love.graphics.setColor(hex.rgb("ffffff"))
   love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
 end
