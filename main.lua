@@ -8,14 +8,17 @@ world = Bump.newWorld(64)
 
 winW = love.graphics.getWidth()
 winH = love.graphics.getHeight()
+map = require "Tilemap.Map"
 
 require "Objects.Entity"
 require "Objects.PlayerObj"
 require "Objects.Platform"
 
+mapManager = require "Managers.MapManager"
+
 function Restart()
   objects = {}
-  objects.player = PlayerObj(winW/2, winH/2, 32, 32, 1500, 8, 500)
+  objects.player = PlayerObj(winW/2, winH/10, 32, 32, 1000, 4, 400)
   if not world:hasItem(objects.player) then
     world:add(objects.player, objects.player.x, objects.player.y, objects.player.w, objects.player.h)
   else
@@ -23,17 +26,14 @@ function Restart()
     world:add(objects.player, objects.player.x, objects.player.y, objects.player.w, objects.player.h)
   end
 
-  objects.platforms = {
-    Platform(30, winH - 100, 800, 100),
-    Platform(50, 200, 500, 75)
-  }
-
-  for i=1,#objects.platforms do
-    world:add(objects.platforms[i], objects.platforms[i].x, objects.platforms[i].y, objects.platforms[i].w, objects.platforms[i].h)
-  end
+  objects.platforms = {}
+  mapManager.loadMap(map)
 end
 
 function love.load()
+  love.graphics.setDefaultFilter("nearest", "nearest")
+  testTile = love.graphics.newImage("Images/Tile.png")
+
   Restart()
 end
 
@@ -42,6 +42,7 @@ function love.update(dt)
 end
 
 function love.draw()
+  mapManager.drawMap(map)
   objects.player:draw()
   for i=1,#objects.platforms do
     objects.platforms[i]:draw()

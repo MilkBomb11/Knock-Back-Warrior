@@ -73,7 +73,6 @@ function PlayerObj:jump(key)
   end
 end
 
-
 function PlayerObj:respawn(x, y)
   self.x = x
   self.y = y
