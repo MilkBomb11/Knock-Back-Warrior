@@ -1,3 +1,9 @@
+--[[
+TODO : Create player sprite: box with small legs
+TODO : Create gun : can be aimed with mouse, somewhat like a hand cannon (no trigger)
+]]
+
+
 Object = require "Libs.classic"
 Camera = require "Libs.camera"
 Timer = require "Libs.timer"

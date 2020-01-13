@@ -16,9 +16,9 @@ function PlayerObj:new(x, y, w, h, speed, friction, jumpSpeed)
   self.spawnPointY = y
 
   self.keys = {}
-  self.keys.left = "left"
-  self.keys.right = "right"
-  self.keys.jump = "up"
+  self.keys.left = {"left", "a"}
+  self.keys.right = {"right", "d"}
+  self.keys.jump = {"up", "w"}
 end
 
 function PlayerObj:update(world, dt)
@@ -30,9 +30,11 @@ function PlayerObj:update(world, dt)
 end
 
 function PlayerObj:move(speed, friction, dt)
-  if love.keyboard.isDown(self.keys.left) then
+  local left = love.keyboard.isDown(self.keys.left[1]) or love.keyboard.isDown(self.keys.left[2])
+  local right = love.keyboard.isDown(self.keys.right[1]) or love.keyboard.isDown(self.keys.right[2])
+  if left then
     self.xv = self.xv - speed * dt
-  elseif love.keyboard.isDown(self.keys.right) then
+  elseif right then
     self.xv = self.xv + speed * dt
   end
   self.xv = self.xv / (1 + friction*dt)
@@ -67,7 +69,8 @@ function PlayerObj:collide(world, dt)
 end
 
 function PlayerObj:jump(key)
-  if key == self.keys.jump and self.jumpLeft > 0 then
+  local jump = (key == self.keys.jump[1] or key == self.keys.jump[2])
+  if jump and self.jumpLeft > 0 then
     self.yv = -self.jumpSpeed
     self.jumpLeft = self.jumpLeft - 1
   end
