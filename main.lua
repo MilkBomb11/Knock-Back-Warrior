@@ -1,6 +1,8 @@
 --[[
-TODO : Create player sprite: box with small legs
 TODO : Create gun : can be aimed with mouse, somewhat like a hand cannon (no trigger)
+
+player : 20x16
+
 ]]
 
 
@@ -18,13 +20,15 @@ map = require "Tilemap.Map"
 
 require "Objects.Entity"
 require "Objects.PlayerObj"
+require "Objects.PlayerSprite"
 require "Objects.Platform"
+
 
 mapManager = require "Managers.MapManager"
 
 function Restart()
   objects = {}
-  objects.player = PlayerObj(winW/2, winH/10, 32, 32, 1000, 4, 400)
+  objects.player = PlayerObj(winW/2, winH/10, 40, 32, 1000, 4, 400)
   if not world:hasItem(objects.player) then
     world:add(objects.player, objects.player.x, objects.player.y, objects.player.w, objects.player.h)
   else
@@ -59,6 +63,10 @@ function love.load()
   images.tiles = {}
   for i=1,12 do
     table.insert(images.tiles, images.quads[i])
+  end
+  images.player = {}
+  for i=13,15 do
+    table.insert(images.player, images.quads[i])
   end
 
   Restart()

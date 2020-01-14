@@ -19,6 +19,8 @@ function PlayerObj:new(x, y, w, h, speed, friction, jumpSpeed)
   self.keys.left = {"left", "a"}
   self.keys.right = {"right", "d"}
   self.keys.jump = {"up", "w"}
+
+  self.sprite = PlayerSprite(2, 2)
 end
 
 function PlayerObj:update(world, dt)
@@ -26,6 +28,7 @@ function PlayerObj:update(world, dt)
     self:move(self.speed, self.friction, dt) --200, 9
     self:gravity(895, dt) --895
     self:collide(world, dt)
+    self.sprite:update(dt)
   end
 end
 
@@ -82,6 +85,7 @@ function PlayerObj:respawn(x, y)
 end
 
 function PlayerObj:draw()
-  love.graphics.setColor(hex.rgb("ffffff"))
-  love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
+  self.sprite:draw()
+  --love.graphics.setColor(hex.rgb("ffffff"))
+  --love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
 end
