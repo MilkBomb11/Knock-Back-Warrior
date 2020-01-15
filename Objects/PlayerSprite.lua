@@ -9,7 +9,9 @@ function PlayerSprite:new(sx, sy)
   self.currentFrame = 1
   self.timeBtwFrame = 0.2
   self.currentTime = 0
-  self.walk_totalFrames = 2
+  self.walk_startFrame = 1
+  self.walk_lastFrame = 2
+  self.jumpFrame = 3
 end
 
 function PlayerSprite:update(dt)
@@ -34,14 +36,14 @@ function PlayerSprite:walk(dt)
   local right = love.keyboard.isDown("right") or love.keyboard.isDown("d")
 
   if (left or right) and objects.player.onGround then
-    if self.currentFrame == 3 then
+    if self.currentFrame == self.jumpFrame then
       self.currentFrame = 1
       self.currentTime = 0.1
     end
 
     if self.currentTime >= self.timeBtwFrame then
-      if self.currentFrame >= self.walk_totalFrames then
-        self.currentFrame = 1
+      if self.currentFrame >= self.walk_lastFrame then
+        self.currentFrame = self.walk_startFrame
       else
         self.currentFrame = self.currentFrame + 1
       end
