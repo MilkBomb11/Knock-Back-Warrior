@@ -29,7 +29,7 @@ mapManager = require "Managers.MapManager"
 
 function Restart()
   objects = {}
-  objects.player = PlayerObj(winW/2, winH/10, 24, 38, 1000, 4, 400)
+  objects.player = PlayerObj(winW/2, winH/10, 24, 38, 1250, 6, 400)
   if not world:hasItem(objects.player) then
     world:add(objects.player, objects.player.x, objects.player.y, objects.player.w, objects.player.h)
   else
@@ -76,6 +76,10 @@ end
 
 function love.update(dt)
   objects.player:update(world, dt)
+end
+
+function love.mousepressed(x, y, button, isTouch)
+  objects.player:shoot()
 end
 
 function love.draw()

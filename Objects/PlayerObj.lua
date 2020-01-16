@@ -23,7 +23,9 @@ function PlayerObj:new(x, y, w, h, speed, friction, jumpSpeed)
   self.sprite = PlayerSprite(2, 2)
 
   self.gunPos = {offsetX = self.w/2, offsetY = self.h/3}
-  self.gun = Gun()
+  self.gun = Gun(15)
+
+  self.knockBackX = 25
 end
 
 function PlayerObj:update(world, dt)
@@ -80,6 +82,15 @@ function PlayerObj:jump(key)
   if jump and self.jumpLeft > 0 then
     self.yv = -self.jumpSpeed
     self.jumpLeft = self.jumpLeft - 1
+  end
+end
+
+function PlayerObj:shoot()
+  self.gun:shoot()
+  if self.sprite.x > love.mouse.getX() then
+    self.xv = self.xv + self.knockBackX
+  elseif self.sprite.x < love.mouse.getX() then
+    self.xv = self.xv - self.knockBackX
   end
 end
 
