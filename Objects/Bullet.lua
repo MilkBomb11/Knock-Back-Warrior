@@ -20,5 +20,5 @@ end
 function Bullet:draw()
   love.graphics.setColor(1, 1, 1)
   love.graphics.draw(images.spriteSheet, images.bullet, self.x, self.y, 0, 1, 1, 16, 16)
-  love.graphics.rectangle("line", self.x-self.w/2, self.y-self.h/2, self.w, self.h)
+  --love.graphics.rectangle("line", self.x-self.w/2, self.y-self.h/2, self.w, self.h)
 end
