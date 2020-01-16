@@ -87,10 +87,12 @@ end
 
 function PlayerObj:shoot()
   self.gun:shoot()
-  if self.sprite.x > love.mouse.getX() then
-    self.xv = self.xv + self.knockBackX
-  elseif self.sprite.x < love.mouse.getX() then
-    self.xv = self.xv - self.knockBackX
+  if self.gun.canShoot then
+    if self.sprite.x > love.mouse.getX() then
+      self.xv = self.xv + self.knockBackX
+    elseif self.sprite.x < love.mouse.getX() then
+      self.xv = self.xv - self.knockBackX
+    end
   end
 end
 

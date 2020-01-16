@@ -5,9 +5,17 @@ function Gun:new(recoil)
   self.y = 0
   self.dir = 0
 
+  self.gunLength = 20
+  self.gunTip = {x = 0, y = 0}
+
+
   self.recoil = recoil
   self.tweener = Timer.new()
   self.fixedPos = {}
+
+  self.coolTime = 0.3
+  self.currentTime = 0
+  self.canShoot = true
 end
 
 function Gun:update(dt)
@@ -16,6 +24,7 @@ function Gun:update(dt)
 
   self:followPlayer()
   self:lookAtMouse()
+  self:manageCoolTime(dt)
   self.tweener:update(dt)
 end
 
@@ -30,6 +39,8 @@ function Gun:lookAtMouse()
   local height = love.mouse.getY() - self.y
   local base = love.mouse.getX() - self.x
   self.dir = math.atan2(height, base)
+  self.gunTip.x = self.x + math.cos(self.dir) * self.gunLength
+  self.gunTip.y = self.y + math.sin(self.dir) * self.gunLength
 end
 
 function Gun:inning(targetPos)
@@ -41,10 +52,23 @@ function Gun:outing()
 end
 
 function Gun:shoot()
-  local dx = -(math.cos(self.dir) * self.recoil)
-  local dy = -(math.sin(self.dir) * self.recoil)
-  local dPos = {x = self.fixedPos.x + dx, y = self.fixedPos.y + dy}
-  self:inning(dPos)
+  if self.canShoot then
+    local dx = -(math.cos(self.dir) * self.recoil)
+    local dy = -(math.sin(self.dir) * self.recoil)
+    local dPos = {x = self.fixedPos.x + dx, y = self.fixedPos.y + dy}
+    self:inning(dPos)
+    self.canShoot = false
+    self.currentTime = 0
+    table.insert(objects.bullets, Bullet(self.gunTip.x, self.gunTip.y, self.dir, 600))
+  end
+end
+
+function Gun:manageCoolTime(dt)
+  if self.currentTime >= self.coolTime then
+    self.canShoot = true
+  else
+    self.currentTime = self.currentTime + dt
+  end
 end
 
 function Gun:draw()

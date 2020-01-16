@@ -23,9 +23,18 @@ require "Objects.PlayerObj"
 require "Objects.PlayerSprite"
 require "Objects.Platform"
 require "Objects.Gun"
+require "Objects.Bullet"
 
 
 mapManager = require "Managers.MapManager"
+bulletManager = require "Managers.BulletManager"
+
+function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
+  return x1 < x2+w2 and
+         x2 < x1+w1 and
+         y1 < y2+h2 and
+         y2 < y1+h1
+end
 
 function Restart()
   objects = {}
@@ -37,6 +46,7 @@ function Restart()
     world:add(objects.player, objects.player.x, objects.player.y, objects.player.w, objects.player.h)
   end
 
+  objects.bullets = {}
   objects.platforms = {}
   mapManager.loadMap(map)
 end
@@ -70,12 +80,14 @@ function love.load()
     table.insert(images.player, images.quads[i])
   end
   images.gun = {images.quads[16], images.quads[17]}
+  images.bullet = images.quads[18]
 
   Restart()
 end
 
 function love.update(dt)
   objects.player:update(world, dt)
+  bulletManager.update(dt)
 end
 
 function love.mousepressed(x, y, button, isTouch)
@@ -84,6 +96,7 @@ end
 
 function love.draw()
   mapManager.drawMap(map)
+  bulletManager.draw()
   objects.player:draw()
 end
 
