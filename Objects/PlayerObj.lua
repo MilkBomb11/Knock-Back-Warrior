@@ -21,6 +21,9 @@ function PlayerObj:new(x, y, w, h, speed, friction, jumpSpeed)
   self.keys.jump = {"up", "w"}
 
   self.sprite = PlayerSprite(2, 2)
+
+  self.gunPos = {offsetX = self.w/2, offsetY = self.h/3}
+  self.gun = Gun()
 end
 
 function PlayerObj:update(world, dt)
@@ -29,6 +32,7 @@ function PlayerObj:update(world, dt)
     self:gravity(895, dt) --895
     self:collide(world, dt)
     self.sprite:update(dt)
+    self.gun:update(dt)
   end
 end
 
@@ -86,6 +90,7 @@ end
 
 function PlayerObj:draw()
   self.sprite:draw()
+  self.gun:draw()
   --love.graphics.setColor(hex.rgb("ffffff"))
   --love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
 end

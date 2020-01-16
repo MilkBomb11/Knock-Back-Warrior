@@ -22,13 +22,14 @@ require "Objects.Entity"
 require "Objects.PlayerObj"
 require "Objects.PlayerSprite"
 require "Objects.Platform"
+require "Objects.Gun"
 
 
 mapManager = require "Managers.MapManager"
 
 function Restart()
   objects = {}
-  objects.player = PlayerObj(winW/2, winH/10, 24, 44, 1000, 4, 400)
+  objects.player = PlayerObj(winW/2, winH/10, 24, 38, 1000, 4, 400)
   if not world:hasItem(objects.player) then
     world:add(objects.player, objects.player.x, objects.player.y, objects.player.w, objects.player.h)
   else
@@ -68,6 +69,7 @@ function love.load()
   for i=13,15 do
     table.insert(images.player, images.quads[i])
   end
+  images.gun = {images.quads[16], images.quads[17]}
 
   Restart()
 end
