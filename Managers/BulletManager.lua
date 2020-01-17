@@ -11,6 +11,10 @@ function bm.update(dt)
       end
     end
 
+    if (bullet.x > winW or bullet.x < -bullet.x) or (bullet.y < -bullet.h or bullet.y > winH) then
+      table.remove(objects.bullets, bulletIndex)
+    end
+
   end
 end
 

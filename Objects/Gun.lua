@@ -57,7 +57,6 @@ function Gun:shoot()
     local dy = -(math.sin(self.dir) * self.recoil)
     local dPos = {x = self.fixedPos.x + dx, y = self.fixedPos.y + dy}
     self:inning(dPos)
-    self.canShoot = false
     self.currentTime = 0
     table.insert(objects.bullets, Bullet(self.gunTip.x, self.gunTip.y, self.dir, 600))
   end
