@@ -25,7 +25,7 @@ function PlayerObj:new(x, y, w, h, speed, friction, jumpSpeed)
   self.gunPos = {offsetX = self.w/2, offsetY = self.h/3}
   self.gun = Gun(15)
 
-  self.knockBackX = 25
+  self.knockBackX = 500
 end
 
 function PlayerObj:update(world, dt)

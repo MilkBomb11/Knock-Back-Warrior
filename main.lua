@@ -1,5 +1,4 @@
 --[[
-TODO : Create gun : can be aimed with mouse, somewhat like a hand cannon (no trigger)
 
 player : 20x16
 
@@ -24,10 +23,12 @@ require "Objects.PlayerSprite"
 require "Objects.Platform"
 require "Objects.Gun"
 require "Objects.Bullet"
+require "Objects.Particle"
 
 
 mapManager = require "Managers.MapManager"
 bulletManager = require "Managers.BulletManager"
+particleManager = require "Managers.ParticleManager"
 
 function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
   return x1 < x2+w2 and
@@ -48,6 +49,7 @@ function Restart()
 
   objects.bullets = {}
   objects.platforms = {}
+  objects.particles = {}
   mapManager.loadMap(map)
 end
 
@@ -88,6 +90,7 @@ end
 function love.update(dt)
   objects.player:update(world, dt)
   bulletManager.update(dt)
+  particleManager.update(dt)
 end
 
 function love.mousepressed(x, y, button, isTouch)
@@ -98,6 +101,7 @@ function love.draw()
   mapManager.drawMap(map)
   bulletManager.draw()
   objects.player:draw()
+  particleManager.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
