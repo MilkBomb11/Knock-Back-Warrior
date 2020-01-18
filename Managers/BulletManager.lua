@@ -7,7 +7,9 @@ function bm.update(dt)
     for platformIndex,platform in ipairs(objects.platforms) do
       if CheckCollision(platform.x,platform.y,platform.w,platform.h, bullet.x-bullet.w/2,bullet.y-bullet.h/2,bullet.w,bullet.h) then
         table.remove(objects.bullets, bulletIndex)
-        particleManager.spawnParticles( love.math.random(unpack(particleDatas[currentGun][1])) , bullet.x, bullet.y, unpack(particleDatas[currentGun][2]))
+        local particleDatas = guns_proto[currentGun].particle
+        particleManager.spawnParticles( love.math.random(unpack(particleDatas[1])) , bullet.x, bullet.y, unpack(particleDatas[2]))
+        screen:shake(guns_proto[currentGun].gun.shakeVal)
       end
     end
 

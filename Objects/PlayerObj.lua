@@ -23,7 +23,7 @@ function PlayerObj:new(x, y, w, h, speed, friction, jumpSpeed)
   self.sprite = PlayerSprite(2, 2)
 
   self.gunPos = {offsetX = self.w/2, offsetY = self.h/3}
-  self.gun = Gun(unpack(gunDatas[currentGun]))
+  self.gun = guns_proto[currentGun].gun
 end
 
 function PlayerObj:update(world, dt)

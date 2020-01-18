@@ -1,6 +1,6 @@
 Gun = Object:extend()
 
-function Gun:new(recoil, coolTime, knockBack, bulletSpeed, damage)
+function Gun:new(recoil, coolTime, knockBack, bulletSpeed, damage, shakeVal)
   self.x = 0
   self.y = 0
   self.dir = 0
@@ -19,6 +19,7 @@ function Gun:new(recoil, coolTime, knockBack, bulletSpeed, damage)
 
   self.knockBack = knockBack
   self.bulletSpeed = bulletSpeed
+  self.shakeVal = shakeVal
 end
 
 function Gun:update(dt)

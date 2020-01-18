@@ -10,6 +10,7 @@ Camera = require "Libs.camera"
 Timer = require "Libs.timer"
 Bump = require "Libs.bump"
 hex = require "Libs.hexamaniac"
+screen = require "Libs.shack"
 
 world = Bump.newWorld(64)
 
@@ -68,6 +69,7 @@ end
 
 function love.load()
   love.graphics.setBackgroundColor(hex.rgb("69859f"))
+  screen:setDimensions(winW, winH)
 
   love.graphics.setDefaultFilter("nearest", "nearest")
   images = {}
@@ -86,15 +88,18 @@ function love.load()
 
   currentGun = "boomer"
 
-  gunDatas = {}
-  gunDatas.basic = {15, 0.3, 25, 600, 20} --recoil, coolTime, knockBack, bulletSpeed, damage
-  gunDatas.machineGun = {20, 0.05, 30, 800, 10}
-  gunDatas.boomer = {22, 2, 40, 500, 100}
+  guns_proto = {}
+  guns_proto.basic = {}
+  guns_proto.basic.gun =  Gun(15, 0.3, 25, 600, 20, 8) --recoil, coolTime, knockBack, bulletSpeed, damage, shakeVal
+  guns_proto.basic.particle = {{6, 14}, {-200, 200, 100, 300}} --pAmount, xv, -yv
 
-  particleDatas = {}
-  particleDatas.basic = {{6, 14}, {-200, 200, 100, 300}}
-  particleDatas.machineGun = {{3, 7}, {-200, 200, 400, 150}}
-  particleDatas.boomer = {{20, 40}, {-250, 250, 200, 600}}
+  guns_proto.machineGun = {}
+  guns_proto.machineGun.gun = Gun(20, 0.05, 30, 800, 10, 5)
+  guns_proto.machineGun.particle = {{3, 7}, {-200, 200, 400, 150}}
+
+  guns_proto.boomer = {}
+  guns_proto.boomer.gun = Gun(22, 2, 40, 500, 100, 20)
+  guns_proto.boomer.particle = {{20, 40}, {-250, 250, 200, 600}}
 
   Restart()
 end
@@ -103,6 +108,7 @@ function love.update(dt)
   objects.player:update(world, dt)
   bulletManager.update(dt)
   particleManager.update(dt)
+  screen:update(dt)
 end
 
 function love.mousepressed(x, y, button, isTouch)
@@ -110,6 +116,7 @@ function love.mousepressed(x, y, button, isTouch)
 end
 
 function love.draw()
+  screen:apply()
   mapManager.drawMap(map)
   bulletManager.draw()
   objects.player:draw()
