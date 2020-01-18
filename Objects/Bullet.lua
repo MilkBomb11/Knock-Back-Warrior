@@ -1,9 +1,10 @@
 Bullet = Entity:extend()
 
-function Bullet:new(x, y, dir, speed)
+function Bullet:new(x, y, dir, speed, damage)
   Bullet.super.new(self, x, y, 8, 8)
   self.dir = dir
   self.speed = speed
+  self.damage = damage
 end
 
 function Bullet:update(dt)

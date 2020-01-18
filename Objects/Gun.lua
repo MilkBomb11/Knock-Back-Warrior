@@ -1,6 +1,6 @@
 Gun = Object:extend()
 
-function Gun:new(recoil)
+function Gun:new(recoil, coolTime, knockBack, bulletSpeed, damage)
   self.x = 0
   self.y = 0
   self.dir = 0
@@ -13,9 +13,12 @@ function Gun:new(recoil)
   self.tweener = Timer.new()
   self.fixedPos = {}
 
-  self.coolTime = 0.3
+  self.coolTime = coolTime
   self.currentTime = 0
   self.canShoot = true
+
+  self.knockBack = knockBack
+  self.bulletSpeed = bulletSpeed
 end
 
 function Gun:update(dt)
@@ -58,7 +61,7 @@ function Gun:shoot()
     local dPos = {x = self.fixedPos.x + dx, y = self.fixedPos.y + dy}
     self:inning(dPos)
     self.currentTime = 0
-    table.insert(objects.bullets, Bullet(self.gunTip.x, self.gunTip.y, self.dir, 600))
+    table.insert(objects.bullets, Bullet(self.gunTip.x, self.gunTip.y, self.dir, self.bulletSpeed, self.damage))
   end
 end
 

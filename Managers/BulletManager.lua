@@ -7,14 +7,14 @@ function bm.update(dt)
     for platformIndex,platform in ipairs(objects.platforms) do
       if CheckCollision(platform.x,platform.y,platform.w,platform.h, bullet.x-bullet.w/2,bullet.y-bullet.h/2,bullet.w,bullet.h) then
         table.remove(objects.bullets, bulletIndex)
-        particleManager.spawnParticles( love.math.random(5, 10) , bullet.x, bullet.y)
+        particleManager.spawnParticles( love.math.random(unpack(particleDatas[currentGun][1])) , bullet.x, bullet.y, unpack(particleDatas[currentGun][2]))
       end
     end
 
     if (bullet.x > winW or bullet.x < -bullet.x) or (bullet.y < -bullet.h or bullet.y > winH) then
       table.remove(objects.bullets, bulletIndex)
     end
-    
+
   end
 end
 

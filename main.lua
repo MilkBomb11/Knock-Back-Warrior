@@ -84,6 +84,18 @@ function love.load()
   images.gun = {images.quads[16], images.quads[17]}
   images.bullet = images.quads[18]
 
+  currentGun = "boomer"
+
+  gunDatas = {}
+  gunDatas.basic = {15, 0.3, 25, 600, 20} --recoil, coolTime, knockBack, bulletSpeed, damage
+  gunDatas.machineGun = {20, 0.05, 30, 800, 10}
+  gunDatas.boomer = {22, 2, 40, 500, 100}
+
+  particleDatas = {}
+  particleDatas.basic = {{6, 14}, {-200, 200, 100, 300}}
+  particleDatas.machineGun = {{3, 7}, {-200, 200, 400, 150}}
+  particleDatas.boomer = {{20, 40}, {-250, 250, 200, 600}}
+
   Restart()
 end
 

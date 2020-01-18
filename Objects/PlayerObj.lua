@@ -23,9 +23,7 @@ function PlayerObj:new(x, y, w, h, speed, friction, jumpSpeed)
   self.sprite = PlayerSprite(2, 2)
 
   self.gunPos = {offsetX = self.w/2, offsetY = self.h/3}
-  self.gun = Gun(15)
-
-  self.knockBackX = 25
+  self.gun = Gun(unpack(gunDatas[currentGun]))
 end
 
 function PlayerObj:update(world, dt)
@@ -89,9 +87,9 @@ function PlayerObj:shoot()
   self.gun:shoot()
   if self.gun.canShoot then
     if self.sprite.x > love.mouse.getX() then
-      self.xv = self.xv + self.knockBackX
+      self.xv = self.xv + self.gun.knockBack
     elseif self.sprite.x < love.mouse.getX() then
-      self.xv = self.xv - self.knockBackX
+      self.xv = self.xv - self.gun.knockBack
     end
     self.gun.canShoot = false
   end
