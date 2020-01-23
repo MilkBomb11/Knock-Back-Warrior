@@ -2,7 +2,7 @@ local em = {}
 
 function em.reset()
   em.enemySpeedPresets = {-50, 50, -100, 100}
-  em.timeBtwSpawn = 2
+  em.timeBtwSpawn = 0.5
   em.currentTime = 0
 end
 

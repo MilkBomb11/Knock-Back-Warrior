@@ -6,6 +6,10 @@ function Enemy:new(x, y, w, h, speed)
   self.yv = 0
   self.onGround = false
   self.speed = speed
+
+  self.health = 100
+
+  self.sprite = EnemySprite(self)
 end
 
 function Enemy:update(world, dt)
@@ -13,6 +17,7 @@ function Enemy:update(world, dt)
     self:move(dt) --200, 9
     self:gravity(895, dt) --895
     self:collide(world, dt)
+    self.sprite:update(dt)
   end
 end
 
@@ -50,6 +55,7 @@ function Enemy:collide(world, dt)
 end
 
 function Enemy:draw()
-  love.graphics.setColor(hex.rgb("ffffff"))
-  love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
+  --love.graphics.setColor(hex.rgb("ffffff"))
+  --love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
+  self.sprite:draw()
 end

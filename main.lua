@@ -29,6 +29,7 @@ require "Objects.Gun"
 require "Objects.Bullet"
 require "Objects.Particle"
 require "Objects.Enemy"
+require "Objects.EnemySprite"
 
 
 mapManager = require "Managers.MapManager"
@@ -130,10 +131,10 @@ end
 function love.draw()
   screen:apply()
   mapManager.drawMap(map)
+  enemyManager.draw()
   bulletManager.draw()
   objects.player:draw()
   particleManager.draw()
-  enemyManager.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
