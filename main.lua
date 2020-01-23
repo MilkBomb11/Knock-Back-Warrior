@@ -1,6 +1,9 @@
 --[[
+TODO : Add enemy obj physics
+       Add enemy sprite
 
 player : 20x16
+enemy : 18x21
 
 ]]
 
@@ -25,11 +28,14 @@ require "Objects.Platform"
 require "Objects.Gun"
 require "Objects.Bullet"
 require "Objects.Particle"
+require "Objects.Enemy"
 
 
 mapManager = require "Managers.MapManager"
 bulletManager = require "Managers.BulletManager"
 particleManager = require "Managers.ParticleManager"
+enemyManager = require "Managers.EnemyManager"
+enemyManager.reset()
 
 function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
   return x1 < x2+w2 and
@@ -51,7 +57,10 @@ function Restart()
   objects.bullets = {}
   objects.platforms = {}
   objects.particles = {}
+  objects.enemies = {}
   mapManager.loadMap(map)
+
+  enemyManager.spawnEnemy()
 end
 
 function GetQuads(spriteSheet, cellSize)
@@ -85,8 +94,10 @@ function love.load()
   end
   images.gun = {images.quads[16], images.quads[17]}
   images.bullet = images.quads[18]
+  images.enemy = {images.quads[19], images.quads[20]}
+  images.enemy.basicGun = images.quads
 
-  currentGun = "boomer"
+  currentGun = "machineGun"
 
   guns_proto = {}
   guns_proto.basic = {}
@@ -109,6 +120,7 @@ function love.update(dt)
   bulletManager.update(dt)
   particleManager.update(dt)
   screen:update(dt)
+  enemyManager.update(world, dt)
 end
 
 function love.mousepressed(x, y, button, isTouch)
@@ -121,6 +133,7 @@ function love.draw()
   bulletManager.draw()
   objects.player:draw()
   particleManager.draw()
+  enemyManager.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
