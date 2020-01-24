@@ -28,9 +28,10 @@ require "Objects.Platform"
 require "Objects.Gun"
 require "Objects.Bullet"
 require "Objects.Particle"
-require "Objects.Enemy"
-require "Objects.EnemySprite"
-
+require "Objects.Enemy.Enemy"
+require "Objects.Enemy.EnemySprite"
+require "Objects.Enemy.BasicEnemy"
+require "Objects.Enemy.BasicEnemyGun"
 
 mapManager = require "Managers.MapManager"
 bulletManager = require "Managers.BulletManager"
@@ -96,7 +97,7 @@ function love.load()
   images.gun = {images.quads[16], images.quads[17]}
   images.bullet = images.quads[18]
   images.enemy = {images.quads[19], images.quads[20]}
-  images.enemy.basicGun = images.quads
+  images.enemy.basicGun = images.quads[21]
 
   currentGun = "machineGun"
 

@@ -10,7 +10,7 @@ function em.spawnEnemy()
   local x = love.math.random(0, winW-36)
   local y = -42
   local speed = em.enemySpeedPresets[love.math.random(1, 4)]
-  local enemy = Enemy(x, y, 36, 42, speed)
+  local enemy = BasicEnemy(x, y, 36, 42, speed)
   table.insert(objects.enemies, enemy)
   world:add(enemy, enemy.x, enemy.y, enemy.w, enemy.h)
 end
