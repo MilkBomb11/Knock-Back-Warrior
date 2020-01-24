@@ -9,7 +9,7 @@ function bm.update(dt)
         table.remove(objects.bullets, bulletIndex)
         local particleDatas = guns_proto[bullet.gunType].particle
         particleManager.spawnParticles(bullet.color, love.math.random(unpack(particleDatas[1])) , bullet.x, bullet.y, unpack(particleDatas[2]))
-        screen:shake(guns_proto[currentGun].gun.shakeVal)
+        --screen:shake(guns_proto[currentGun].gun.shakeVal)
       end
     end
 
@@ -25,6 +25,7 @@ function bm.update(dt)
           else
             enemy.speed = -math.abs(enemy.speed)
           end
+          enemy.healthBar.health = enemy.healthBar.health - guns_proto[bullet.gunType].gun.damage
         end
       end
     elseif bullet.shooterType == "enemy" then
@@ -34,6 +35,7 @@ function bm.update(dt)
         local particleDatas = guns_proto[bullet.gunType].particle
         particleManager.spawnParticles(bullet.color, love.math.random(unpack(particleDatas[1])) , bullet.x, bullet.y, unpack(particleDatas[2]))
         screen:shake(guns_proto[currentGun].gun.shakeVal)
+        player.healthBar.health = player.healthBar.health - guns_proto.enemy[bullet.gunType].damage
       end
     end
 

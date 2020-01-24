@@ -36,7 +36,7 @@ function BasicEnemyGun:shoot()
   else
     bulletSpeed = 300
   end
-  table.insert(objects.bullets, Bullet(self.x, self.y, 0, bulletSpeed, 50, "enemy", "machineGun"))
+  table.insert(objects.bullets, Bullet(self.x, self.y, 0, bulletSpeed, 50, "enemy", "basic"))
 end
 
 

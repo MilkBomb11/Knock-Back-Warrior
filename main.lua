@@ -32,6 +32,7 @@ require "Objects.Enemy.Enemy"
 require "Objects.Enemy.EnemySprite"
 require "Objects.Enemy.Basic.BasicEnemy"
 require "Objects.Enemy.Basic.BasicEnemyGun"
+require "Objects.HealthBar"
 
 mapManager = require "Managers.MapManager"
 bulletManager = require "Managers.BulletManager"
@@ -99,11 +100,11 @@ function love.load()
   images.enemy = {images.quads[19], images.quads[20]}
   images.enemy.basicGun = images.quads[21]
 
-  currentGun = "machineGun"
+  currentGun = "basic"
 
   guns_proto = {}
   guns_proto.basic = {}
-  guns_proto.basic.gun =  Gun(15, 0.3, 25, 600, 20, 8) --recoil, coolTime, knockBack, bulletSpeed, damage, shakeVal
+  guns_proto.basic.gun =  Gun(15, 0.3, 25, 600, 50, 8) --recoil, coolTime, knockBack, bulletSpeed, damage, shakeVal
   guns_proto.basic.particle = {{6, 14}, {-200, 200, 100, 300}} --pAmount, xv, -yv
 
   guns_proto.machineGun = {}
@@ -113,6 +114,10 @@ function love.load()
   guns_proto.boomer = {}
   guns_proto.boomer.gun = Gun(22, 2, 40, 500, 100, 20)
   guns_proto.boomer.particle = {{20, 40}, {-250, 250, 200, 600}}
+
+  guns_proto.enemy = {}
+  guns_proto.enemy.basic = {}
+  guns_proto.enemy.basic.damage = 10
 
   Restart()
 end

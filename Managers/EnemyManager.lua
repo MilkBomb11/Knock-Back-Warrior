@@ -2,7 +2,7 @@ local em = {}
 
 function em.reset()
   em.enemySpeedPresets = {-50, 50, -100, 100}
-  em.timeBtwSpawn = 0.5
+  em.timeBtwSpawn = 2
   em.currentTime = 0
 end
 
@@ -19,6 +19,10 @@ function em.update(world, dt)
   for i,enemy in ipairs(objects.enemies) do
     enemy:update(world, dt)
     if enemy.y > winH then
+      world:remove(enemy)
+      table.remove(objects.enemies, i)
+    end
+    if enemy.healthBar.health <= 0 then
       world:remove(enemy)
       table.remove(objects.enemies, i)
     end

@@ -20,6 +20,8 @@ function Gun:new(recoil, coolTime, knockBack, bulletSpeed, damage, shakeVal)
   self.knockBack = knockBack
   self.bulletSpeed = bulletSpeed
   self.shakeVal = shakeVal
+  
+  self.damage = damage
 end
 
 function Gun:update(dt)
