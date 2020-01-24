@@ -1,11 +1,11 @@
 Particle = Object:extend()
 
-function Particle:new(x, y, w, h, r, g, b, grv, xSpeed, yv)
+function Particle:new(x, y, w, h, color, grv, xSpeed, yv)
   self.x = x
   self.y = y
   self.w = w
   self.h = h
-  self.color = {r, g, b}
+  self.color = color
 
   self.grv = grv
   self.xSpeed = xSpeed
@@ -27,6 +27,6 @@ function Particle:move(dt)
 end
 
 function Particle:draw()
-  love.graphics.setColor(unpack(self.color))
+  love.graphics.setColor(hex.rgb(self.color))
   love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
 end

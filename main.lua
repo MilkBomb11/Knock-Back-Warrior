@@ -95,7 +95,7 @@ function love.load()
     table.insert(images.player, images.quads[i])
   end
   images.gun = {images.quads[16], images.quads[17]}
-  images.bullet = images.quads[18]
+  images.bullet = {player = images.quads[18], enemy = images.quads[22]}
   images.enemy = {images.quads[19], images.quads[20]}
   images.enemy.basicGun = images.quads[21]
 

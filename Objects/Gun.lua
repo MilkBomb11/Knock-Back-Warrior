@@ -62,7 +62,7 @@ function Gun:shoot()
     local dPos = {x = self.fixedPos.x + dx, y = self.fixedPos.y + dy}
     self:inning(dPos)
     self.currentTime = 0
-    table.insert(objects.bullets, Bullet(self.gunTip.x, self.gunTip.y, self.dir, self.bulletSpeed, self.damage))
+    table.insert(objects.bullets, Bullet(self.gunTip.x, self.gunTip.y, self.dir, self.bulletSpeed, self.damage, "player", currentGun))
   end
 end
 
