@@ -6,16 +6,18 @@ function bm.update(dt)
 
     for platformIndex,platform in ipairs(objects.platforms) do
       if CheckCollision(platform.x,platform.y,platform.w,platform.h, bullet.x-bullet.w/2,bullet.y-bullet.h/2,bullet.w,bullet.h) then
+        table.insert(objects.damageCircles, DamageCircle(bullet.x, bullet.y, guns_proto[bullet.gunType].radius, bullet.gunType))
         table.remove(objects.bullets, bulletIndex)
         local particleDatas = guns_proto[bullet.gunType].particle
         particleManager.spawnParticles(bullet.color, love.math.random(unpack(particleDatas[1])) , bullet.x, bullet.y, unpack(particleDatas[2]))
-        --screen:shake(guns_proto[currentGun].gun.shakeVal)
+        screen:shake(guns_proto[bullet.gunType].gun.shakeVal)
       end
     end
 
     if bullet.shooterType == "player" then
       for enemyIndex,enemy in ipairs(objects.enemies) do
         if CheckCollision(bullet.x-bullet.w/2,bullet.y-bullet.h/2,bullet.w,bullet.h, enemy.x,enemy.y,enemy.w,enemy.h) then
+          table.insert(objects.damageCircles, DamageCircle(bullet.x, bullet.y, guns_proto[bullet.gunType].radius, bullet.gunType))
           table.remove(objects.bullets, bulletIndex)
           local particleDatas = guns_proto[bullet.gunType].particle
           particleManager.spawnParticles(bullet.color, love.math.random(unpack(particleDatas[1])) , bullet.x, bullet.y, unpack(particleDatas[2]))
@@ -25,17 +27,16 @@ function bm.update(dt)
           else
             enemy.speed = -math.abs(enemy.speed)
           end
-          enemy.healthBar.health = enemy.healthBar.health - guns_proto[bullet.gunType].gun.damage
         end
       end
     elseif bullet.shooterType == "enemy" then
       local player = objects.player
       if CheckCollision(bullet.x-bullet.w/2,bullet.y-bullet.h/2,bullet.w,bullet.h, player.x,player.y,player.w,player.h) then
+        table.insert(objects.damageCircles, DamageCircle(bullet.x, bullet.y, guns_proto[bullet.gunType].radius, bullet.gunType))
         table.remove(objects.bullets, bulletIndex)
         local particleDatas = guns_proto[bullet.gunType].particle
         particleManager.spawnParticles(bullet.color, love.math.random(unpack(particleDatas[1])) , bullet.x, bullet.y, unpack(particleDatas[2]))
         screen:shake(guns_proto[currentGun].gun.shakeVal)
-        player.healthBar.health = player.healthBar.health - guns_proto.enemy[bullet.gunType].damage
       end
     end
 

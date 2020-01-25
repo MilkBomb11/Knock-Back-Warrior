@@ -33,12 +33,14 @@ require "Objects.Enemy.EnemySprite"
 require "Objects.Enemy.Basic.BasicEnemy"
 require "Objects.Enemy.Basic.BasicEnemyGun"
 require "Objects.HealthBar"
+require "Objects.DamageCircle"
 
 mapManager = require "Managers.MapManager"
 bulletManager = require "Managers.BulletManager"
 particleManager = require "Managers.ParticleManager"
 enemyManager = require "Managers.EnemyManager"
 enemyManager.reset()
+damageCircleManager = require "Managers.DamageCircleManager"
 
 function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
   return x1 < x2+w2 and
@@ -61,6 +63,7 @@ function Restart()
   objects.platforms = {}
   objects.particles = {}
   objects.enemies = {}
+  objects.damageCircles = {}
   mapManager.loadMap(map)
 
   enemyManager.spawnEnemy()
@@ -106,18 +109,25 @@ function love.load()
   guns_proto.basic = {}
   guns_proto.basic.gun =  Gun(15, 0.3, 25, 600, 50, 8) --recoil, coolTime, knockBack, bulletSpeed, damage, shakeVal
   guns_proto.basic.particle = {{6, 14}, {-200, 200, 100, 300}} --pAmount, xv, -yv
+  guns_proto.basic.radius = 5
 
   guns_proto.machineGun = {}
   guns_proto.machineGun.gun = Gun(20, 0.05, 30, 800, 30, 5)
   guns_proto.machineGun.particle = {{3, 7}, {-200, 200, 400, 150}}
+  guns_proto.machineGun.radius = 1
 
   guns_proto.boomer = {}
   guns_proto.boomer.gun = Gun(22, 2, 40, 500, 100, 20)
   guns_proto.boomer.particle = {{20, 40}, {-250, 250, 200, 600}}
+  guns_proto.boomer.radius = 100
 
   guns_proto.enemy = {}
   guns_proto.enemy.basic = {}
   guns_proto.enemy.basic.damage = 10
+  guns_proto.enemy.machineGun = {}
+  guns_proto.enemy.machineGun.damage = 5
+  guns_proto.enemy.boomer = {}
+  guns_proto.enemy.boomer.damage = 20
 
   Restart()
 end
@@ -128,6 +138,7 @@ function love.update(dt)
   particleManager.update(dt)
   screen:update(dt)
   enemyManager.update(world, dt)
+  damageCircleManager.update(dt)
 end
 
 function love.mousepressed(x, y, button, isTouch)
