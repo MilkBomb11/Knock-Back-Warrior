@@ -7,8 +7,6 @@ function Enemy:new(x, y, w, h, speed)
   self.onGround = false
   self.speed = speed
 
-  self.health = 100
-
   self.sprite = EnemySprite(self)
 end
 

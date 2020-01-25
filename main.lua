@@ -100,7 +100,7 @@ function love.load()
   images.enemy = {images.quads[19], images.quads[20]}
   images.enemy.basicGun = images.quads[21]
 
-  currentGun = "basic"
+  currentGun = "boomer"
 
   guns_proto = {}
   guns_proto.basic = {}
@@ -108,7 +108,7 @@ function love.load()
   guns_proto.basic.particle = {{6, 14}, {-200, 200, 100, 300}} --pAmount, xv, -yv
 
   guns_proto.machineGun = {}
-  guns_proto.machineGun.gun = Gun(20, 0.05, 30, 800, 10, 5)
+  guns_proto.machineGun.gun = Gun(20, 0.05, 30, 800, 30, 5)
   guns_proto.machineGun.particle = {{3, 7}, {-200, 200, 400, 150}}
 
   guns_proto.boomer = {}

@@ -23,6 +23,8 @@ function em.update(world, dt)
       table.remove(objects.enemies, i)
     end
     if enemy.healthBar.health <= 0 then
+      particleManager.spawnParticles("0000ff", love.math.random(15, 25), enemy.x, enemy.y, -200, 200, 300, 500)
+      screen:shake(15)
       world:remove(enemy)
       table.remove(objects.enemies, i)
     end
